@@ -1,36 +1,36 @@
 from flask import Flask
 
-# Initialize Flask app
+# Create the Flask application instance
 app = Flask(__name__)
 
-# Existing car models
-existing_models = ["corolla", "civic", "mustang", "camry", "tesla"]
+# List of valid car models in the fleet
+existing_models = ["Corolla", "Civic", "Mustang", "Camry", "Tesla", "Crossroads"]
 
 
-# Default route
+# Home route (default page)
 @app.route('/')
 def home():
+    # Returns a welcome message when visiting the root URL
     return "Welcome to Flatiron Cars"
 
 
-# Dynamic route
+# Dynamic route that captures any car model from the URL
 @app.route('/<model>')
 def car_model(model):
 
-    # Save original input
-    original_model = model
+    # Loop through each known car model in the fleet
+    for car in existing_models:
 
-    # Compare using lowercase
-    model = model.lower()
+        # Compare user input with stored model in a case-insensitive way
+        if car.lower() == model.lower():
 
-    # Check if model exists
-    if model in existing_models:
-        return f"Flatiron {model} is in our fleet!"
+            # If a match is found, return success message using correct capitalization
+            return f"Flatiron {car} is in our fleet!"
 
-    # Model not found
-    return f"No models called {original_model} exists in our catalog"
+    # If no match is found, return failure message using original user input
+    return f"No models called {model} exists in our catalog"
 
 
-# Run app
+# Run the app only if this file is executed directly
 if __name__ == '__main__':
     app.run(debug=True)
