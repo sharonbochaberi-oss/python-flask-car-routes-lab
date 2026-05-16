@@ -17,7 +17,10 @@ def home():
 @app.route('/<model>')
 def car_model(model):
 
-    # Convert input to lowercase
+    # Save original input
+    original_model = model
+
+    # Compare using lowercase
     model = model.lower()
 
     # Check if model exists
@@ -25,7 +28,7 @@ def car_model(model):
         return f"Flatiron {model} is in our fleet!"
 
     # Model not found
-    return f"No models called {model} exists in our catalog"
+    return f"No models called {original_model} exists in our catalog"
 
 
 # Run app
